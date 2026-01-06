@@ -11,7 +11,7 @@ const botonNuevaLista = document.getElementById('botonReset')
 
 
 formulario?.addEventListener('submit', onSubmit)
-inputArticulo?.addEventListener('onKeyUp', onKeyUp)
+inputArticulo?.addEventListener('keyup', onKeyUp)
 botonAdd?.addEventListener('click', onAddClick)
 botonNuevaLista?.addEventListener('click', onNewListClick)
 
@@ -19,9 +19,7 @@ loadShoppingList()
 
 }
 
-/** @param {Event} e 
- * @listener formulario.submit
- */
+/** @param {Event} e */
 function onSubmit(e) {
     e.preventDefault()
 }
