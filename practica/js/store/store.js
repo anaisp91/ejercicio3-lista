@@ -1,6 +1,6 @@
 // @ts-check
 
-import { Article, FabricaArticles } from "../clases/Article";
+import { Article } from "../clases/Article";
  import { LocalStorage } from "../clases/LocalStorage";
 
 
@@ -36,6 +36,16 @@ import { Article, FabricaArticles } from "../clases/Article";
     removeArticleById(id){
         this.#items = this.#items.filter(item => item.id !== id)
         this.#storage.setItems(this.#items)
+    }
+
+    /** @param {*} id  */
+    toggleArticle(id){
+        const article = this.#items.find(item => item.id === id)
+        if(article){
+            article.toggle()
+            this.#storage.setItems(this.#items)
+        }
+
     }
 
     clear(){
