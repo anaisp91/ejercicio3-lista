@@ -26,3 +26,19 @@ export class Article {
         this.comprado = !this.comprado
     }
 }
+
+export class FabricaArticles {
+   
+   /**
+    * 
+    * @param {string} name 
+    * @returns {Article}
+    */
+   newArticle(name){
+        const id = Date.now()
+        return new Article(id, name)
+   }
+    
+        
+}
+
