@@ -32,13 +32,13 @@ import { Article } from "../clases/Article";
         this.#storage.setItems(this.#items)
     }
 
-    /** @param {*} id */
+    /** @param {number} id */
     removeArticleById(id){
         this.#items = this.#items.filter(item => item.id !== id)
         this.#storage.setItems(this.#items)
     }
 
-    /** @param {*} id  */
+    /** @param {number} id  */
     toggleArticle(id){
         const article = this.#items.find(item => item.id === id)
         if(article){
