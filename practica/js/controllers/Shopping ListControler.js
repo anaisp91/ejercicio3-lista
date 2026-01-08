@@ -99,8 +99,33 @@ export class ShoppingListController {
     }
 
     //5.HANDLERS
+    
+    /** @param {Event} e  */
 
-    onSubmit(){
+    onSubmit(e){
+        //evita comportamiento de navegador
+        e.preventDefault()
+
+        //lee el input trim evita strings vacios
+        const nombre = this.inputArticulo.value.trim()
+
+        //evita logica innecesaria
+        if(!nombre) return
+
+        //crea articulo
+        const articulo = this.fabrica.newArticle(nombre)
+
+        //store se encarga de añadir-guardar
+        this.store.addArticle(articulo)
+
+        //reseteamos input
+        this.inputArticulo.value = ''
+
+        //renderizamos
+        this.render()
+
+
+
 
     }
 
