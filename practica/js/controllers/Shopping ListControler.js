@@ -15,15 +15,20 @@ export class ShoppingListController {
    //3.DOM DECLARACION
 
    /** @type {HTMLFormElement} */
-   formulario
+   // @ts-ignore
+   formulario!
    /** @type {HTMLInputElement} */
-   inputArticulo
+   // @ts-ignore
+   inputArticulo!
    /** @type {HTMLButtonElement} */
-   botonAdd
+   // @ts-ignore
+   botonAdd!
    /** @type {HTMLButtonElement} */
-   botonNuevaLista
+   // @ts-ignore
+   botonNuevaLista!
    /** @type {HTMLUListElement} */
-   lista
+   // @ts-ignore
+   lista!
    
    //3.CONSTRUCTOR
    
