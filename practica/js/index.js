@@ -4,16 +4,16 @@ document.addEventListener('DOMContentLoaded', onDOMLoaded)
 
 function onDOMLoaded() {
     
-const formulario = document.getElementById('formulario')
-const inputArticulo = document.getElementById('inputArticulo')
-const botonAdd = document.getElementById('botonAnadir')
-const botonNuevaLista = document.getElementById('botonReset')
+//const formulario = document.getElementById('formulario')
+//const inputArticulo = document.getElementById('inputArticulo')
+//const botonAdd = document.getElementById('botonAnadir')
+//onst botonNuevaLista = document.getElementById('botonReset')
 
 
-formulario?.addEventListener('submit', onSubmit)
-inputArticulo?.addEventListener('keyup', onKeyUp)
-botonAdd?.addEventListener('click', onAddClick)
-botonNuevaLista?.addEventListener('click', onNewListClick)
+//formulario?.addEventListener('submit', onSubmit)
+//inputArticulo?.addEventListener('keyup', onKeyUp)
+//botonAdd?.addEventListener('click', onAddClick)
+//botonNuevaLista?.addEventListener('click', onNewListClick)
 
 loadShoppingList()
 
