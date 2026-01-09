@@ -1,6 +1,6 @@
 // @ts-check
 import { Store } from "../store/store";
-import { FabricaArticles } from "../clases/Article";
+import { Article, FabricaArticles } from "../clases/Article";
 
 //CONEXION DEL DOM CON LA STORE Y CONTROLA LAS ACCIONES DEL USUARIO
 
@@ -121,19 +121,27 @@ export class ShoppingListController {
         //reseteamos input
         this.inputArticulo.value = ''
 
-        //renderizamos
+        //renderizamos-luego sera NOTIFY
         this.render()
 
 
+    }
+
+    /** @param {Event} e  */
+
+    onAddClick(e){
+        e.preventDefault()
+
+        this.onSubmit(e)
 
 
     }
 
-    onAddClick(){
+    /** @param {Event} e  */
+    onNewListClick(e){
 
-    }
-
-    onNewListClick(){
+        this.store.clear()
+        this.render()
 
     }
 
@@ -141,8 +149,21 @@ export class ShoppingListController {
 
     render(){
 
-    }
+        const listaArticulos = this.store.getArticles()
 
-   
+        this.lista.innerHTML = '' // limpiamos lista para no duplicar contenido
+
+        listaArticulos.forEach((item => {
+
+            const li = document.createElement('li')
+            li.textContent = item.name
+
+            this.lista.appendChild(li)
+
+            
+        }))
+
+        
+    }
 }
 
