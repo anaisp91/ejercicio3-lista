@@ -94,6 +94,11 @@ export class ShoppingListController {
             this.onNewListClick.bind(this)
         )
 
+        this.lista.addEventListener(
+            'click',
+            this.onListClick.bind(this)
+        )
+
 
 
     }
@@ -139,9 +144,20 @@ export class ShoppingListController {
 
     /** @param {Event} e  */
     onNewListClick(e){
-
+        e.preventDefault()
         this.store.clear()
         this.render()
+
+    }
+
+
+    /** @param {Event} e  */
+    onListClick(e){
+       
+        if (!(e.target instanceof Element)) return
+        
+        const li = e.target.closest('li')
+        if(!li) return
 
     }
 
@@ -157,6 +173,7 @@ export class ShoppingListController {
 
             const li = document.createElement('li')
             li.textContent = item.name
+            li.dataset.id = String(item.id)
 
             this.lista.appendChild(li)
 
