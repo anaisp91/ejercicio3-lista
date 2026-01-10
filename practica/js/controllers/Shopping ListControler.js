@@ -154,11 +154,33 @@ export class ShoppingListController {
     /** @param {Event} e  */
     onListClick(e){
        
-        if (!(e.target instanceof Element)) return
-        
-        const li = e.target.closest('li')
-        if(!li) return
+        //aseguramos que target es un Elemento
+       if (!(e.target instanceof Element)) return
 
+       //buacamos erl li mas cercano
+       const li = e.target.closest('li')
+       if (!li) return
+
+       //leemos id y comprobamos
+
+       const idAttr = li.dataset.id
+       if (!idAttr) {
+          throw new Error ('El li no tiene data-id')
+       }
+      
+       //Convertimos a numero y comprobamos
+       const id = Number(idAttr)
+       if (Number.isNaN(id)) return
+
+       //Delegamos el cambio de estado
+       this.store.toggleArticle(id)
+
+       this.render()
+
+
+
+
+       
     }
 
     //6.RENDER
@@ -172,8 +194,28 @@ export class ShoppingListController {
         listaArticulos.forEach((item => {
 
             const li = document.createElement('li')
-            li.textContent = item.name
             li.dataset.id = String(item.id)
+
+            const newInput = document.createElement('input')
+
+            newInput.type = 'checkbox'
+            newInput.dataset.action = 'toggle'
+            newInput.checked = item.comprado
+
+            const span = document.createElement('span')
+            span.textContent = item.name
+
+            const botonArticulo = document.createElement('button')
+            botonArticulo.type = 'button'
+            botonArticulo.textContent = 'Borrar'
+            botonArticulo.dataset.action = 'delete'
+            
+
+
+            li.appendChild(newInput)
+            li.appendChild(span)
+            li.appendChild(botonArticulo)
+
 
             this.lista.appendChild(li)
 
