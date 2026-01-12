@@ -1,7 +1,7 @@
 // @ts-check
 
-import { Article } from "../clases/Article";
- import { LocalStorage } from "../clases/LocalStorage";
+import { Article } from "../clases/Article.js";
+ import { LocalStorage } from "../clases/LocalStorage.js";
 
 
  export class Store {

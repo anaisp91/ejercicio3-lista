@@ -1,44 +1,20 @@
 //@ts-check
+import { Store } from "./store/store.js"
+import { LocalStorage } from "./clases/LocalStorage.js"
+import { FabricaArticles } from "./clases/Article.js"
+import { ShoppingListController } from "./controllers/ShoppingListControler.js"
+
 
 document.addEventListener('DOMContentLoaded', onDOMLoaded)
 
 function onDOMLoaded() {
     
-//const formulario = document.getElementById('formulario')
-//const inputArticulo = document.getElementById('inputArticulo')
-//const botonAdd = document.getElementById('botonAnadir')
-//onst botonNuevaLista = document.getElementById('botonReset')
+const storage = new LocalStorage('shopping-list')
+const store = new Store(storage)
+const fabrica = new FabricaArticles()
+const controller = new ShoppingListController(store, fabrica)
 
-
-//formulario?.addEventListener('submit', onSubmit)
-//inputArticulo?.addEventListener('keyup', onKeyUp)
-//botonAdd?.addEventListener('click', onAddClick)
-//botonNuevaLista?.addEventListener('click', onNewListClick)
-
-loadShoppingList()
+controller.init()
 
 }
 
-/** @param {Event} e */
-function onSubmit(e) {
-    e.preventDefault()
-}
-
-/** @param {Event} e */
-function onKeyUp(e){
-    e.preventDefault()
-}
-
-/** @param {Event} e  */
-function onAddClick(e){
-    e.preventDefault()
-}
-
-/** @param {Event} e  */
-function onNewListClick(e){
-    e.preventDefault()
-}
-
-function loadShoppingList(){
-
-}

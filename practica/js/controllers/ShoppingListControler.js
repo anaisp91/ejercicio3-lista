@@ -1,6 +1,6 @@
 // @ts-check
-import { Store } from "../store/store";
-import { Article, FabricaArticles } from "../clases/Article";
+import { Store } from "../store/store.js";
+import { FabricaArticles } from "../clases/Article.js";
 
 //CONEXION DEL DOM CON LA STORE Y CONTROLA LAS ACCIONES DEL USUARIO
 
@@ -16,19 +16,19 @@ export class ShoppingListController {
 
    /** @type {HTMLFormElement} */
    // @ts-ignore
-   formulario!
+   formulario
    /** @type {HTMLInputElement} */
    // @ts-ignore
-   inputArticulo!
+   inputArticulo
    /** @type {HTMLButtonElement} */
    // @ts-ignore
-   botonAdd!
+   botonAdd
    /** @type {HTMLButtonElement} */
    // @ts-ignore
-   botonNuevaLista!
+   botonNuevaLista
    /** @type {HTMLUListElement} */
    // @ts-ignore
-   lista!
+   lista
    
    //3.CONSTRUCTOR
    
@@ -44,9 +44,11 @@ export class ShoppingListController {
    //4.CICLO DE VIDA
 
     init(){
-
+        
+        
         this.cacheDOM()
         this.bindEvents()
+        this.store.subscribe(() => this.render())
         this.render()
 
     }
@@ -127,7 +129,10 @@ export class ShoppingListController {
         this.inputArticulo.value = ''
 
         //renderizamos-luego sera NOTIFY
-        this.render()
+       //this.render() YA LO GESTIONA LA STORE CON SUBS/NOTIFY
+
+
+        
 
 
     }
@@ -146,7 +151,8 @@ export class ShoppingListController {
     onNewListClick(e){
         e.preventDefault()
         this.store.clear()
-        this.render()
+       //this.render() YA LO GESTIONA LA STORE
+       
 
     }
 
@@ -189,8 +195,8 @@ export class ShoppingListController {
 
        }
        
-      
-       this.render()
+       
+      //this.render() YA LO GESTIONA LA STORE
        
     }
 
@@ -206,6 +212,10 @@ export class ShoppingListController {
 
             const li = document.createElement('li')
             li.dataset.id = String(item.id)
+
+            if (item.comprado){
+                li.classList.add('comprado')
+            }
 
             const newInput = document.createElement('input')
 
