@@ -154,32 +154,43 @@ export class ShoppingListController {
     /** @param {Event} e  */
     onListClick(e){
        
-        //aseguramos que target es un Elemento
-       if (!(e.target instanceof Element)) return
+       //NUEVO onListClick
 
-       //buacamos erl li mas cercano
+       //aseguramos que target es un Elemento
+       if (!(e.target instanceof HTMLElement)) return
+
+       //leemos accion toggle || delete
+       const action = e.target.dataset.action
+       if (!action)return
+
+       //buascamos el li mas cercano
        const li = e.target.closest('li')
        if (!li) return
 
        //leemos id y comprobamos
-
        const idAttr = li.dataset.id
-       if (!idAttr) {
-          throw new Error ('El li no tiene data-id')
+       if(!idAttr) {
+        throw new Error ('El li no tiene data-id')
        }
-      
+
        //Convertimos a numero y comprobamos
        const id = Number(idAttr)
        if (Number.isNaN(id)) return
 
-       //Delegamos el cambio de estado
-       this.store.toggleArticle(id)
+       //Ejecutamos una accion
 
+       switch (action) {
+         case 'toggle': 
+             this.store.toggleArticle(id)
+             break
+        case 'delete':
+            this.store.removeArticleById(id)
+            break
+
+       }
+       
+      
        this.render()
-
-
-
-
        
     }
 
