@@ -87,15 +87,15 @@ export function reducer (state = INITIAL_STATE, action){
 
 /**
  * 
- * @param {*} reducer 
+ * @param {typeof reducer} reducer 
  */
 
 export function createState(reducer){
 
-    /** @type {Array<{id:number, name:string, comprado: boolean}>} state */
+    /** @type {typeof INITIAL_STATE} state */
     let state     
 
-    /** @type {Array<{}>} listeners */
+    /** @type {Array<()=> void>} listeners */
     const listeners = []  
 
     function getState(){
