@@ -1,6 +1,6 @@
 //@ts-check
 /**
- * @type {Object}
+ * @type {Array<{id:number, name:string, comprado:boolean}>}
  */
 const INITIAL_STATE = []
 
@@ -42,3 +42,91 @@ export function clear(){
 
     }
 }
+
+//REDUCER
+
+/**
+ * 
+ * @param {typeof INITIAL_STATE} state 
+ * @param {{type: string, payload?:any}} action 
+ */
+export function reducer (state = INITIAL_STATE, action){
+
+    switch(action.type){
+        
+        case 'ADD_ARTICLE' : {
+            const newArticle = {
+                id: Date.now(),
+                name: action.payload.name,
+                comprado: false
+            }
+            return [...state, newArticle]
+        }
+        case 'TOGGLE_ARTICLE': {
+            return state.map(item=>  //modifica 
+                item.id === action.payload.id
+                  ? {...item, comprado: !item.comprado}
+                  : item
+            )
+        }
+        case 'REMOVE_ARTICLE': {
+            return state.filter(item => item.id !==action.payload.id) //elimina
+        }
+        case 'CLEAR_LIST': {
+            return []
+        }
+        default: 
+            return state
+    }
+
+}
+
+
+
+//create state
+
+/**
+ * 
+ * @param {*} reducer 
+ */
+
+export function createState(reducer){
+
+    /** @type {Array<{id:number, name:string, comprado: boolean}>} state */
+    let state     
+
+    /** @type {Array<{}>} listeners */
+    const listeners = []  
+
+    function getState(){
+        return state
+    }
+
+    /** @param {{type: string, payload?:any}} action */
+
+    function dispatch(action){
+        state = reducer(state, action)
+        listeners.forEach(listener=> listener())
+    }
+
+
+    /**  @param {*} listener */
+   function subscribe(listener){
+        listeners.push(listener)
+   }
+
+
+    //INICIALIZACION DE ESTADO
+
+    dispatch({ type: '@@INIT'})
+
+    return {
+        getState,
+        dispatch,
+        subscribe
+    }
+
+
+
+}
+
