@@ -1,16 +1,15 @@
 // @ts-check
-import { Store } from "../store/store.js";
-import { FabricaArticles } from "../clases/Article.js";
+import { addArticle, removeArticleById, toggleArticle, clear } from "../store/redux-store.js"
+
 
 //CONEXION DEL DOM CON LA STORE Y CONTROLA LAS ACCIONES DEL USUARIO
 
 export class ShoppingListController {
     
    //1.DEPENDENCIAS
-   /** @type {Store}  */
+   /** @type {{dispatch: Function,getState: Function, subscribe: Function}}  */
    store
-   /** @type {FabricaArticles} */
-   fabrica
+   
 
    //3.DOM DECLARACION
 
@@ -33,12 +32,11 @@ export class ShoppingListController {
    //3.CONSTRUCTOR
    
     /**
-     * @param {Store} store
-     * @param {FabricaArticles} fabrica
+     * @param {{dispatch: Function,getState: Function, subscribe: Function}} store
      */
-   constructor(store, fabrica){
+   constructor(store){
     this.store = store
-    this.fabrica = fabrica
+    
    }
 
    //4.CICLO DE VIDA
@@ -48,7 +46,9 @@ export class ShoppingListController {
         
         this.cacheDOM()
         this.bindEvents()
+        //subscribimos a la redux: cuando cambiua estado renderizamos
         this.store.subscribe(() => this.render())
+        //render inicial
         this.render()
 
     }
@@ -119,11 +119,14 @@ export class ShoppingListController {
         //evita logica innecesaria
         if(!nombre) return
 
-        //crea articulo
+        /*//crea articulo
         const articulo = this.fabrica.newArticle(nombre)
 
         //store se encarga de añadir-guardar
         this.store.addArticle(articulo)
+        */
+        //redux: describimos que ha pasado
+        this.store.dispatch(addArticle(nombre))
 
         //reseteamos input
         this.inputArticulo.value = ''
@@ -150,7 +153,8 @@ export class ShoppingListController {
     /** @param {Event} e  */
     onNewListClick(e){
         e.preventDefault()
-        this.store.clear()
+        //accion clara redux
+        this.store.dispatch(clear())
        //this.render() YA LO GESTIONA LA STORE
        
 
@@ -187,10 +191,10 @@ export class ShoppingListController {
 
        switch (action) {
          case 'toggle': 
-             this.store.toggleArticle(id)
+             this.store.dispatch(toggleArticle(id))
              break
         case 'delete':
-            this.store.removeArticleById(id)
+            this.store.dispatch(removeArticleById(id))
             break
 
        }
@@ -204,11 +208,14 @@ export class ShoppingListController {
 
     render(){
 
-        const listaArticulos = this.store.getArticles()
+        //const listaArticulos = this.store.getArticles()
 
+        //redux
+        const items = this.store.getState()
         this.lista.innerHTML = '' // limpiamos lista para no duplicar contenido
 
-        listaArticulos.forEach((item => {
+        /**  */
+        items.forEach((/** @type {{id: number, comprado: boolean, name: string}} */ item) => {
 
             const li = document.createElement('li')
             li.dataset.id = String(item.id)
@@ -241,9 +248,7 @@ export class ShoppingListController {
             this.lista.appendChild(li)
 
             
-        }))
-
-        
+        })
     }
 }
 
