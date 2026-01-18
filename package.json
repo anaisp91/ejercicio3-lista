@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "scripts": {
+    "server:start": "node --env-file-.env --watch server/index.js"
+  },
   "devDependencies": {
     "jsdoc": "^4.0.5",
     "typescript": "^5.9.3"
