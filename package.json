@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "server:start": "node --env-file-.env --watch server/index.js"
+    "server:start:watch": "node --env-file-.env --watch server/server.js"
   },
   "devDependencies": {
     "jsdoc": "^4.0.5",
