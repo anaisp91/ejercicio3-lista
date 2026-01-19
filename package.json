@@ -1,7 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "server:start:watch": "node --env-file-.env --watch server/server.js"
+    "server:start:watch": "node --env-file-.env --watch server/server.js",
+    "server:statics:watch": "node --env-file=.env --watch server/server.statics.js"
   },
   "devDependencies": {
     "jsdoc": "^4.0.5",
