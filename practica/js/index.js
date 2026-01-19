@@ -1,7 +1,7 @@
 //@ts-check
 //import { Store } from "./store/store.js"
 import { createState, reducer } from "./store/redux-store.js"
-import { ShoppingListController } from "./controllers/ShoppingListControler.js"
+import { ShoppingListController } from "./controllers/ShoppingListController.js"
 //import { LocalStorage } from "./clases/LocalStorage.js"
 //import { FabricaArticles } from "./clases/Article.js"
 
